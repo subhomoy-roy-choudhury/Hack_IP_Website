@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="theme-color" content="#272c34"/>
+    <title>Chatterbot</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Hack_IP_Web</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" id= "system">System Information</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id = "location">Location</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id = "browser">Browser</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="browser_new"></div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.6/platform.min.js"></script>
+    <script>
+      var browser = platform.name;
+      var version = platform.version;
+      var layout = platform.layout;
+      var os = platform.os;
+      var description = platform.description;
+      document.getElementById("browser").addEventListener("click", browser_new);
+      function browser_new() {
+        browser_new = document.getElementById('browser_new');
+        console.log(browser_new)
+        document.getElementById('browser_new').innerHTML =  `<section>
+          <div>Browser: ${browser}</div>
+          <div>Version: ${version}</div>
+          <div>Layout: ${layout}</div>
+          <div>OS: ${os}</div>
+          <div>Description: ${description}</div>
+          
+      </section>`;
+      }
+      document.getElementById("system").addEventListener("click", system);
+      function system() {
+        browser_new = document.getElementById('browser_new');
+        console.log(browser_new)
+        document.getElementById('browser_new').innerHTML =  `<section>
+          <div>Operating System: {{data.os_name}}</div>
+          <div>Machine: {{data.machine}}</div>
+          <div>Processor: {{data.processor}}</div>
+          <div>Release: {{data.release}}</div>
+          <div>Version: {{data.version}}</div>
+          <div>Hostname: {{data.hostname}}</div>
+          <div>FQDN: {{data.fqdn}}</div>
+          <div>Private IP: {{data.pvt_ip}}</div>
+          <div>Public IP: {{data.public_ip}}</div>
+      </section>`;
+      }
+      document.getElementById("location").addEventListener("click", location1);
+      function location1() {
+        $.get("https://ipinfo.io", function (response) {
+          browser_new = document.getElementById('browser_new');
+          console.log(browser_new)
+          document.getElementById('browser_new').innerHTML =  `<section>
+            <div>Public IP: ${response.ip}</div>
+            <div>City: ${response.city}</div>
+            <div>Country Code: ${response.country}</div>
+            <div>Service Provider: ${response.org}</div>
+            <div>Postal Code: ${response.postal}</div>
+            <div>Region: ${response.region}</div>
+            <div>Timezone: ${response.timezone}</div>
+            <div>Coordinates: ${response.loc}</div>
+        </section>`;
+
+      }, "jsonp");
+    }
+    </script>
+  </body>
+</html>

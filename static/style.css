@@ -1,0 +1,10 @@
+body {
+    font-family: Garamond;
+}
+
+#browser_new {
+    display: grid;
+    place-items: center;
+    height: 50vh;
+    width: 100%;
+}
