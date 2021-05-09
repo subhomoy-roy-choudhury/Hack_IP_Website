@@ -3,9 +3,10 @@
   <head>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta name="theme-color" content="#272c34"/>
-    <title>Chatterbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hack_IP_Website</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,10 +18,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" id= "system">System Information</a>
+              <a class="nav-link active" aria-current="page" href="javascript:system()">System Information</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" id = "location">Location</a>
+              <a class="nav-link active" href="javascript:location1()">Location</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" id = "browser">Browser</a>
@@ -30,6 +31,7 @@
       </div>
     </nav>
     <div id="browser_new"></div>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.6/platform.min.js"></script>
     <script>
       var browser = platform.name;
@@ -50,7 +52,6 @@
           
       </section>`;
       }
-      document.getElementById("system").addEventListener("click", system);
       function system() {
         browser_new = document.getElementById('browser_new');
         console.log(browser_new)
@@ -66,7 +67,6 @@
           <div>Public IP: {{data.public_ip}}</div>
       </section>`;
       }
-      document.getElementById("location").addEventListener("click", location1);
       function location1() {
         $.get("https://ipinfo.io", function (response) {
           browser_new = document.getElementById('browser_new');

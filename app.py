@@ -30,19 +30,24 @@ def my_ip_location(my_ip):
 def get_bot_response():
     system_data = platform.uname()
     os_name = str(system_data.system)
+    hostname = socket.gethostname() # returns hostname
+    ip_address = socket.gethostbyname(hostname)  # returns IPv4 address with respect to hostname
+    fqdn = socket.getfqdn('www.google.com') # returns fully qualified domain name for name
+    ip = get('https://api.ipify.org').text
     if os_name.lower()=="windows" :
-        hostname = socket.gethostname() # returns hostname
-        ip_address = socket.gethostbyname(hostname)  # returns IPv4 address with respect to hostname
-        fqdn = socket.getfqdn('www.google.com') # returns fully qualified domain name for name
-        ip = get('https://api.ipify.org').text
+        pvt_ip = socket.gethostbyname_ex(hostname)[-1][-1]
+    elif os_name.lower()=="linux" and os_name.lower()=="darwin" :
+        f = open("out.txt", "r")
+        strings = re.findall(r'192.168.\d{1,3}.\d{1,3}', f.read())
+        pvt_ip = strings[-2]
         
-        machine = str(system_data.machine)
-        processor = str(system_data.processor)
-        release = str(system_data.release)
-        version = str(system_data.version)
-        hostname = str(hostname)
-        pvt_ip = str(socket.gethostbyname_ex(hostname)[-1][-1])
-        public_ip = str(ip)
+    machine = str(system_data.machine)
+    processor = str(system_data.processor)
+    release = str(system_data.release)
+    version = str(system_data.version)
+    hostname = str(hostname)
+    pvt_ip = str(pvt_ip)
+    public_ip = str(ip)
 
     data ={
         'fqdn' : fqdn,
@@ -56,10 +61,7 @@ def get_bot_response():
         'os_name': os_name,
     }
     return render_template('index.html',data=data)
-    
-
-
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True,host="0.0.0.0")
     
